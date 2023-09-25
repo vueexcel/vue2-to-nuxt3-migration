@@ -1,7 +1,7 @@
 <template>
     <div>
-       <v-form @submit.prevent="processForm(tarea)" ref="form" class="my-5">
-        <v-text-field v-model="tarea.tarea" :counter="10" label="input" required></v-text-field>
+       <v-form @submit.prevent="processForm(data)" ref="form" class="my-5">
+        <v-text-field v-model="data.data" :counter="10" label="input" required></v-text-field>
         <v-btn type="submit" elevation="2">Submit</v-btn>
       </v-form>
       <v-simple-table>
@@ -16,12 +16,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in tareas" :key="index">
-              <td :style="item.estado ? 'text-decoration:line-through;' : 'text-decoration:none;'">{{ item.tarea }}</td>
+            <tr v-for="(item, index) in storeData" :key="index">
+              <td :style="item.estado ? 'text-decoration:line-through;' : 'text-decoration:none;'">{{ item.data }}</td>
               <td><v-chip close-icon="mdi-close-outline" dark :color="item.estado ? 'green' : '' ">{{ item.estado ? 'completed' : 'To-Do' }}</v-chip></td>
               <td><v-btn id="mark" depressed color="primary" @click="processMark(item)">Mark</v-btn></td>
               <td><v-btn id="edit" depressed color="primary" @click="processEdit(item,index)">Edit</v-btn></td>
-              <td><v-btn id="delete" depressed color="error" @click="eliminarTarea(item.id)">Delete</v-btn></td>
+              <td><v-btn id="delete" depressed color="error" @click="eliminardata(item.id)">Delete</v-btn></td>
             </tr>
           </tbody>
         </template>
@@ -33,50 +33,50 @@
     export default {
       data: () => ({
           valid: true,
-          tarea: {
+          data: {
             id: '',
-            tarea: '',
+            data: '',
             estado: false, 
             index:null   
           },
           Position:null
         }),
         computed:{
-            ...mapState(['tareas']),
+            ...mapState(['storeData']),
             
         },
         methods:{
-          ...mapActions(['markTarea', 'eliminarTarea','enviarFormulario']),
-         processForm: function(tarea){
-          if(this.tarea.tarea.trim() !== ''){
-            if(this.tarea.index !== null ){
-               this.enviarFormulario(this.tarea)
+          ...mapActions(['markdata', 'eliminardata','setdata']),
+         processForm: function(data){
+          if(this.data.data.trim() !== ''){
+            if(this.data.index !== null ){
+               this.setdata(this.data)
             }   
             else{
-              this.tarea.id = this.tareas.length + 1
-              this.enviarFormulario(tarea)
+              this.data.id = this.storeData.length + 1
+              this.setdata(data)
             }
                 
-             this.tarea = {
+             this.data = {
                 id: '',
-                tarea: '',
+                data: '',
                 estado: false,
                 index:null
              }
                 }
          },
     
-          processMark: function(tarea){
-            tarea.estado = !tarea.estado
-            this.markTarea(tarea)
+          processMark: function(data){
+            data.estado = !data.estado
+            this.markdata(data)
           },
          
-          processEdit: function(tarea,index){
+          processEdit: function(data,index){
             this.Position=null
-            this.tarea.tarea  = tarea.tarea;
-            this.tarea.estado  = tarea.estado;
-            this.tarea.id  = tarea.id;
-            this.tarea.index  =index
+            this.data.data  = data.data;
+            this.data.estado  = data.estado;
+            this.data.id  = data.id;
+            this.data.index  =index
           },
     
         }

@@ -5,49 +5,49 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      tareas: [],
+      storeData: [],
   },
   mutations: {
-      setTarea(state, payload) {
+      setdata(state, payload) {
           if(payload.index !== null)
           {
-              state.tareas.splice(payload.index,1,payload)
+              state.storeData.splice(payload.index,1,payload)
           }
           else{
-              state.tareas.push(payload);
+              state.storeData.push(payload);
           }
          
-          localStorage.setItem('tareas', JSON.stringify(state.tareas))
+          localStorage.setItem('storeData', JSON.stringify(state.storeData))
       },
-      markTarea(state, payload) {
-          state.tareas = state.tareas.map(element => element.id === payload.id ? payload : element)
-          localStorage.setItem('tareas', JSON.stringify(state.tareas))
+      markdata(state, payload) {
+          state.storeData = state.storeData.map(element => element.id === payload.id ? payload : element)
+          localStorage.setItem('storeData', JSON.stringify(state.storeData))
       },
-      eliminarTarea(state, payload) {
+      eliminardata(state, payload) {
           console.log(payload);
-          state.tareas = state.tareas.filter(element => element.id !== payload)
-          localStorage.setItem('tareas', JSON.stringify(state.tareas))
+          state.storeData = state.storeData.filter(element => element.id !== payload)
+          localStorage.setItem('storeData', JSON.stringify(state.storeData))
       },
       cargarLocalStorage(state, payload) {
-          state.tareas = payload
+          state.storeData = payload
       }
   },
   actions: {
-      enviarFormulario({ commit }, tarea) {
-          commit('setTarea', tarea)
+    setdata({ commit }, data) {
+          commit('setdata', data)
       },
-      markTarea({ commit }, tarea) {
-          commit('markTarea', tarea)
+      markdata({ commit }, data) {
+          commit('markdata', data)
       },
-      eliminarTarea({ commit }, idTarea) {
-          commit('eliminarTarea', idTarea)
+      eliminardata({ commit }, iddata) {
+          commit('eliminardata', iddata)
       },
       cargarLocalStorage({ commit }) {
-          if (localStorage.getItem('tareas')) {
-              commit('cargarLocalStorage', JSON.parse(localStorage.getItem('tareas')))
+          if (localStorage.getItem('storeData')) {
+              commit('cargarLocalStorage', JSON.parse(localStorage.getItem('storeData')))
               return
           }
-          localStorage.setItem('tareas', JSON.stringify([]))
+          localStorage.setItem('storeData', JSON.stringify([]))
       }
   },
 })
