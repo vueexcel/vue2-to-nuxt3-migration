@@ -76,7 +76,7 @@
             this.tarea.tarea  = tarea.tarea;
             this.tarea.estado  = tarea.estado;
             this.tarea.id  = tarea.id;
-            this.tarea.index  =index
+            this.tarea.index  = index
           },
     
         }
