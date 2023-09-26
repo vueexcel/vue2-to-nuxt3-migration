@@ -1,51 +1,40 @@
-import { ref } from 'vue'
-// store.js
+import { computed, ref } from 'vue';
 
-export const state = () => ({
-  storeData: [],
-});
+const storeData = ref([])
 
-export const mutations = {
-  setdata(state, payload) {
-    if (payload.index !== null) {
-      state.storeData.splice(payload.index, 1, payload);
-    } else {
-      state.storeData.push(payload);
+const setdata = (data) => {
+  if(data.flag == true)
+  {
+    data.flag = false
+    {
+      storeData.value.splice(data.index,1,data)
     }
-
-    localStorage.setItem('storeData', JSON.stringify(state.storeData));
-  },
-  markdata(state, payload) {
-    state.storeData = state.storeData.map((element) =>
-      element.id === payload.id ? payload : element
-    );
-    localStorage.setItem('storeData', JSON.stringify(state.storeData));
-  },
-  eliminardata(state, payload) {
-    console.log(payload);
-    state.storeData = state.storeData.filter((element) => element.id !== payload);
-    localStorage.setItem('storeData', JSON.stringify(state.storeData));
-  },
-  cargarLocalStorage(state, payload) {
-    state.storeData = payload;
-  },
-};
-
-export const actions = {
-  setdata({ commit }, data) {
-    commit('setdata', data);
-  },
-  markdata({ commit }, data) {
-    commit('markdata', data);
-  },
-  eliminardata({ commit }, iddata) {
-    commit('eliminardata', iddata);
-  },
-  cargarLocalStorage({ commit }) {
-    if (localStorage.getItem('storeData')) {
-      commit('cargarLocalStorage', JSON.parse(localStorage.getItem('storeData')));
-      return;
+  }
+  else{
+  if(data.index)
+      {
+          storeData.value.splice(data.index,1,data)
+      }
+      else{
+        storeData.value.push(data);
+      }
     }
-    localStorage.setItem('storeData', JSON.stringify([]));
-  },
-};
+     
+}
+// const markdata = (data) => {
+//       storeData = storeData.value.map(element => element.id === data.id ? data : element)
+// }
+const eliminardata = (data) => {
+      storeData.value = storeData.value.filter((item,index) => 
+      index !== data
+      )
+}
+
+
+
+export {
+  eliminardata,
+  setdata,
+  storeData
+  
+}
