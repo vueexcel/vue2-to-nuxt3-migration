@@ -17,7 +17,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in storeData" :key="index">
-              <td :style="item.estado ? 'text-decoration:line-through;' : 'text-decoration:none;'">{{ item.data }}</td>
+              <td :style="item.estado ? 'text-decoration:line-through;' : 'text-decoration:none;'">{{ item.data }} </td>
               <td><v-chip close-icon="mdi-close-outline" dark :color="item.estado ? 'green' : '' ">{{ item.estado ? 'completed' : 'To-Do' }}</v-chip></td>
               <td><v-btn id="mark" depressed color="primary" @click="processMark(item)">Mark</v-btn></td>
               <td><v-btn id="edit" depressed color="primary" @click="processEdit(item,index)">Edit</v-btn></td>
