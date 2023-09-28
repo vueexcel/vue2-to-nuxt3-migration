@@ -12,8 +12,9 @@ describe('File Test!' , () => {
         const wrapper = mount(File)
         expect (wrapper.find('v-text-field').exists()).toBeTruthy()
     })
-    it('v-btn' , () =>{
+    it('trigger a v-btn for calling a function' , async () =>{
         const wrapper = mount(File)
+        await wrapper.find('v-btn').trigger('click')
         expect (wrapper.find('v-btn').exists()).toBeTruthy()
     })
     it('v-simple-table' , () =>{
